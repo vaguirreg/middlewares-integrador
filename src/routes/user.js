@@ -10,9 +10,15 @@ router.get('/register', userController.showRegister);
 router.post('/register', userController.processRegister);
 
 // Muestra la vista de login
-router.get('/login', userController.showRegister);
+router.get('/login', userController.showLogin);
 
 // Procesa la vista de login
-router.post('/login', userController.processRegister);
+router.post('/login', userController.processLogin);
+
+// Muestra el perfil del usuario
+router.get('/profile', userController.showProfile);
+
+// Cierra la sesión
+router.get('/logout', userController.logout);
 
 module.exports = router;

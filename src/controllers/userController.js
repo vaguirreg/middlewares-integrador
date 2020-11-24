@@ -14,6 +14,13 @@ module.exports = {
     processLogin: (req, res) => {
         // Do the magic
         return res.send('Do the magic');
+    },
+    showProfile: (req, res) => {
+        return res.render('user/profile');
+    },
+    logout: (req, res) => {
+        // Do the magic
+        return res.redirect('/');
     }
 
 }
