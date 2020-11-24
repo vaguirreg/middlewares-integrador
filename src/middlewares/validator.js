@@ -32,12 +32,12 @@ module.exports = {
             .notEmpty()
             .withMessage('Es obligatorio repetir la contraseña'),
         body('avatar')
-            .notEmpty()
+            .custom((valueImg, { req }) => req.files[0])
             .withMessage('El avatar es obligatorio')
             .bail()
-            .custom(value => {
+            .custom((value , { req }) => {
                 const acceptedExtensions = ['.jpg', '.png', '.jpeg'];
-                const fileExt = path.extname(value);
+                const fileExt = path.extname(req.files[0].originalname);
                 return acceptedExtensions.includes(fileExt);
             })
             .withMessage('Extensión inválida. Las extensiones aceptadas son: JPG, PNG Y JPEG')

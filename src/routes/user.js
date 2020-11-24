@@ -8,7 +8,7 @@ const userController = require('../controllers/userController');
 
 // Multer config
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/images/users');
     },
@@ -17,7 +17,11 @@ var storage = multer.diskStorage({
     }
 })
 
-var upload = multer({ storage: storage })
+const upload = multer({ 
+    storage: storage
+})
+
+// Routes
 
 // Muestra la vista de registro
 router.get('/register', userController.showRegister);
