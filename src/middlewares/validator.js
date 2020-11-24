@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const readJson = require('../helpers/readJson');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     register: [
@@ -41,5 +42,28 @@ module.exports = {
                 return acceptedExtensions.includes(fileExt);
             })
             .withMessage('Extensión inválida. Las extensiones aceptadas son: JPG, PNG Y JPEG')
+    ],
+    login: [
+        body('email')
+            .notEmpty()
+            .withMessage('El campo email es obligatorio')
+            .bail()
+            .isEmail()
+            .withMessage('Email con formato incorrecto')
+            .bail()
+            .custom((value, { req }) => {
+                const allUsers = readJson();
+                const userFound = allUsers.find(user => value == user.email);
+        
+                if(userFound){
+                    if(bcrypt.compareSync(req.body.password, userFound.password)){
+                        return true;
+                    }
+                    return false;
+                }
+                
+                return false;
+            })
+            .withMessage('Email o contraseña inválidos')
     ]
 }

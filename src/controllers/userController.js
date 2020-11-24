@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 const generateId = require('../helpers/generateId');
 const writeJson = require('../helpers/writeJson');
 const bcrypt = require('bcryptjs');
+const readJson = require('../helpers/readJson');
 
 module.exports = {
     showRegister: (req, res) => {
@@ -32,11 +33,28 @@ module.exports = {
     },
     showLogin: (req, res) => {
         // Do the magic
-        return res.send('Do the magic');
+        return res.render('user/user-login-form');
     },
     processLogin: (req, res) => {
         // Do the magic
-        return res.send('Do the magic');
+        const results = validationResult(req);
+
+        if (!results.isEmpty()) {
+            return res.render("user/user-login-form", {
+                errors: results.errors,
+                old: req.body
+            });
+        }
+
+        const userFound = readJson().find(user => user.email == req.body.email);
+
+        req.session.user = userFound;
+
+        if (req.body.remember){
+            res.cookie('user', userFound.id, { maxAge: 1000 * 60 * 60 });
+        }
+
+        return res.redirect('/');
     }
 
 }

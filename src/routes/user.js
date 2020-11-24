@@ -33,6 +33,6 @@ router.post('/register', upload.any(), validator.register, userController.proces
 router.get('/login', userController.showLogin);
 
 // Procesa la vista de login
-router.post('/login', userController.processRegister);
+router.post('/login', validator.login, userController.processLogin);
 
 module.exports = router;
