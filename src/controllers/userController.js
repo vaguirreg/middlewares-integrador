@@ -55,6 +55,16 @@ module.exports = {
         }
 
         return res.redirect('/');
+    },
+    showProfile: (req, res) => {
+        return res.render('user/profile');
+    },
+    logout: (req, res) => {
+        if(req.cookies.user){
+            res.clearCookie('user');
+        }
+        req.session.destroy();
+        return res.redirect('/');
     }
 
 }
