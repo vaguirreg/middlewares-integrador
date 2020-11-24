@@ -1,4 +1,7 @@
 const { validationResult } = require('express-validator');
+const generateId = require('../helpers/generateId');
+const writeJson = require('../helpers/writeJson');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
     showRegister: (req, res) => {
@@ -16,8 +19,16 @@ module.exports = {
             });
         }
 
-        
+        const user = {
+            id: generateId(),
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10),
+            avatar: req.files[0].filename
+        }
 
+        writeJson(user);
+
+        return res.redirect('/user/login');
     },
     showLogin: (req, res) => {
         // Do the magic

@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const userHelper = require('../helpers/userHelper');
+const readJson = require('../helpers/readJson');
 const path = require('path');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
             .withMessage('Email con formato incorrecto')
             .bail()
             .custom(emailValue => {
-                const users = userHelper.leerJson();
+                const users = readJson();
 
                 const userFound = users.find(user => user.email == emailValue);
 
@@ -26,7 +26,7 @@ module.exports = {
             .isLength({ min: 6 })
             .withMessage('La contraseña debe tener al menos 6 caracteres')
             .bail()
-            .custom((value, req) => value == req.retype)
+            .custom((value, { req }) => value == req.body.retype)
             .withMessage('Las contraseñas no coinciden'),
         body('retype')
             .notEmpty()

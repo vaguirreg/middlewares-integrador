@@ -30,7 +30,7 @@ router.get('/register', userController.showRegister);
 router.post('/register', upload.any(), validator.register, userController.processRegister);
 
 // Muestra la vista de login
-router.get('/login', userController.showRegister);
+router.get('/login', userController.showLogin);
 
 // Procesa la vista de login
 router.post('/login', userController.processRegister);
