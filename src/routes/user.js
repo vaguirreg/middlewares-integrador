@@ -1,26 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 
 const validator = require('../middlewares/validator');
 const auth = require('../middlewares/auth');
 const guest = require('../middlewares/guest');
 const userController = require('../controllers/userController');
 
-// Multer config
+// Multer
+const registerMulter = require('../middlewares/multer/register');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images/users');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + ' - ' + file.originalname);
-    }
-})
-
-const upload = multer({ 
-    storage: storage
-})
 
 // Routes
 
@@ -28,7 +16,7 @@ const upload = multer({
 router.get('/register', guest, userController.showRegister);
 
 // Procesa la vista de registro
-router.post('/register', guest, upload.any(), validator.register, userController.processRegister);
+router.post('/register', guest, registerMulter.any(), validator.register, userController.processRegister);
 
 // Muestra la vista de login
 router.get('/login', guest, userController.showLogin);
