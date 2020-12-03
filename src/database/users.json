@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": 1,
+    "email": "gonza@gonza.com",
+    "password": "$2a$10$W0r2Ha2HHkYmNZ02CNZ73eptF/ZAZqimBGDRmQKwGX6PUJTLXkyUa",
+    "avatar": "1607034417440 - 865098.jpg"
+  }
+]
