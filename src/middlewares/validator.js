@@ -33,7 +33,7 @@ module.exports = {
             .notEmpty()
             .withMessage('Es obligatorio repetir la contraseña'),
         body('avatar')
-            .custom((valueImg, { req }) => req.files[0])
+            .custom((value, { req }) => req.files[0])
             .withMessage('El avatar es obligatorio')
             .bail()
             .custom((value , { req }) => {

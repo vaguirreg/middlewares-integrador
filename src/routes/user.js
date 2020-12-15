@@ -9,7 +9,6 @@ const userController = require('../controllers/userController');
 // Multer
 const registerMulter = require('../middlewares/multer/register');
 
-
 // Routes
 
 // Muestra la vista de registro
