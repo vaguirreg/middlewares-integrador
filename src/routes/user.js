@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const userController = require('../controllers/userController');
 const validator = require('../../middlewares/validator');
 const auth = require('../../middlewares/auth');
@@ -26,3 +25,4 @@ router.get('/profile', auth, userController.showProfile);
 router.get('/logout', auth, userController.logout);
 
 module.exports = router;
+

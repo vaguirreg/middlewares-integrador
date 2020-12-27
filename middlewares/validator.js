@@ -32,9 +32,9 @@ module.exports = {
         body('retype')
             .notEmpty()
             .withMessage('Debe ingresar nuevamente su contraseña'),
-        body('avatar')
+        body('image')
             .custom((value, { req }) => req.files[0])
-            .withMessage('El avatar es obligatorio')
+            .withMessage('La imagen de perfil es obligatoria')
             .bail()
             .custom((value , { req }) => {
                 const acceptedExtensions = ['.jpg', '.png', '.jpeg'];

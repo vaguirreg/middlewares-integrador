@@ -10,6 +10,8 @@ const log = require ('../middlewares/log');
 const setLocals = require ('../middlewares/setLocals');
 
 
+
+
 // ************ express() - (don't touch) ************
 const app = express();
 
@@ -27,6 +29,11 @@ app.use(session({
 
 app.use(log);
 app.use(setLocals);
+
+app.use(express.urlencoded({
+  extended: false
+}));
+app.use(express.json());
 
 // ************ Template Engine - (don't touch) ************
 app.set('view engine', 'ejs');
