@@ -1,9 +1,8 @@
-const readJson = require('../helpers/readJson');
+const helper = require("../helpers/helpers");
 
 module.exports = (req, res, next) => {
     if (!req.session.user && req.cookies.user){
-        const allUsers = readJson();
-        const userFound = allUsers.find(user => user.id == req.cookies.user);
+        const userFound = helper.getAllUsers().find(user => user.id == req.cookies.user);
         req.session.user = userFound;
     }
     return next();
