@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const usersFilePath = path.resolve(__dirname, '../data/users.json');
+const usersFilePath = path.resolve(__dirname, '../src/database/users.json');
 const multer = require('multer');
 
 
@@ -25,7 +25,8 @@ const helper = {
   uploadUser(){
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-          cb(null, __dirname + '/../../public/images')
+          cb(null, path.join('public/images/users')
+          )
         },
         filename: function (req, file, cb) {
           cb(null, Date.now() + '-' + path.extname(file.originalname))

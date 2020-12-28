@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const readJson = require('../helpers/readJson');
+const helper = require('../helpers/helpers');
 const path = require('path');
 const bcryptjs = require('bcryptjs');
 
@@ -13,8 +13,7 @@ module.exports = {
             .withMessage('Email con formato incorrecto')
             .bail()
             .custom(emailValue => {
-                const users = readJson();
-
+                const users = helper.getAllUsers();
                 const userFound = users.find(user => user.email == emailValue);
 
                 return !userFound;
@@ -32,7 +31,7 @@ module.exports = {
         body('retype')
             .notEmpty()
             .withMessage('Debe ingresar nuevamente su contraseña'),
-        body('image')
+        body('avatar')
             .custom((value, { req }) => req.files[0])
             .withMessage('La imagen de perfil es obligatoria')
             .bail()
@@ -52,7 +51,7 @@ module.exports = {
             .withMessage('Email con formato incorrecto')
             .bail()
             .custom((value, { req }) => {
-                const allUsers = readJson();
+                const allUsers = helper.getAllUsers();
                 const userFound = allUsers.find(user => value == user.email);
         
                 if(userFound){

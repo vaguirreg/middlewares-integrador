@@ -1,1 +1,11 @@
-[]
+[
+ {
+  "id": 0
+ },
+ {
+  "id": 1,
+  "email": "aguirregonzalezvioleta@gmail.com",
+  "password": "$2a$10$Yd7dWZ/kcbrjW1J/j/MMzu/7M8M1aHgWETUc/wpB/6.LzlTm3Dbym",
+  "avatar": "1609125556658-.png"
+ }
+]

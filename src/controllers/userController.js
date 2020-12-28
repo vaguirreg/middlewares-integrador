@@ -12,27 +12,25 @@ module.exports = {
 
     //chequear
     processRegister: (req, res) => {
-        let errors = validationResult(req);
-        if (!errors.isEmpty()){
+       let errors = validationResult(req);
+       
+       if (!errors.isEmpty()){
             res.render('user/user-register-form', {errors: errors.errors, old: req.body})
-        } else {
+        } 
            
         const newUser = {
             id: helper.generateNewIdUsers(),
-            name: req.body.name,
-            lastName: req.body.lastName,
-            userName: req.body.userName,
             email: req.body.email,
             password: bcryptjs.hashSync(req.body.password, 10),
-            image: req.files[0].filename,
+            avatar: req.files[0].filename,
         }
-    
+        
         const users = helper.getAllUsers();
         const saveUser = [...users, newUser];
         helper.writeUsers(saveUser);
     
         res.redirect('/user/login');
-    }},
+    },
 
     //hecho
     showLogin: (req, res) => {
@@ -42,11 +40,16 @@ module.exports = {
     //chequear
     processLogin: (req, res) => {
             const errors = validationResult(req);
+
         if (!errors.isEmpty()){
             res.render('user/user-login-form', {errors: errors.errors, old: req.body
             });
         }
-        req.session.email = req.body.email;			
+        
+        const users = helper.getAllUsers()
+        const userFound = users.find(user => user.email == req.body.email)
+
+        req.session.email = userFound			
         
         if (req.body.recordame){
             res.cookie('email', req.body.email, { maxAge: 1000 * 60 * 60 * 24 * 365 });

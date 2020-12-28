@@ -4,13 +4,13 @@ const userController = require('../controllers/userController');
 const validator = require('../../middlewares/validator');
 const auth = require('../../middlewares/auth');
 const guest = require('../../middlewares/guest');
-const multer = require('../../middlewares/multer');
+const helper = require('../../helpers/helpers');
 
 // Muestra la vista de registro
 router.get('/register', guest, userController.showRegister);
 
 // Procesa la vista de registro
-router.post('/register', guest, multer.any(), validator.register, userController.processRegister);
+router.post('/register', guest, helper.uploadUser().any(), validator.register, userController.processRegister);
 
 // Muestra la vista de login
 router.get('/login', guest, userController.showLogin);
